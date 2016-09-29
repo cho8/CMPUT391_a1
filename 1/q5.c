@@ -58,7 +58,26 @@ int main(int argc, char **argv){
     return(1);
   }
   
-  
+   // Create intermediate table to store distances
+  char *sql_updt_distances =
+    "CREATE TEMP TABLE distances( "\
+    "  Airline_ID CHAR[4], "\
+    "  Source_airport CHAR[4], "\
+    "  Destination_airport CHAR[4], "\
+    "  Distance NUMERIC);";
+
+  rc = sqlite3_prepare_v2(db, sql_updt_distances, -1, &stmt, 0);
+  if (rc != SQLITE_OK) {
+      fprintf(stderr, "Preparation failed: CREATE TABLE distances %s\n", sqlite3_errmsg(db));
+      sqlite3_close(db);
+      return 1;
+  }
+  if ((rc = sqlite3_step(stmt)) != SQLITE_DONE){
+    fprintf(stderr, "Update failed: %s\n", sqlite3_errmsg(db));
+    sqlite3_close(db);
+    return 1;
+  }
+  sqlite3_finalize(stmt);
 
   
   // Query for all combinations of airports in routes with coordinates
