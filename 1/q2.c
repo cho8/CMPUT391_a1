@@ -44,9 +44,9 @@ int main(int argc, char **argv){
       "airlines a "\
       "WHERE (fl.airline=a.iata or fl.airline=icao) "\
       " AND fl.airline_id=a.airline_id "\
-      "  AND (a.IATA<>'\N' or a.ICAO<>'\N') "\
-      "  AND a.callsign<>'\N' "\
-      "  AND a.country<>'\N' "\
+      "  AND (a.IATA<>'\\N' or a.ICAO<>'\\N') "\
+      "  AND a.callsign<>'\\N' "\
+      "  AND a.country<>'\\N' "\
       "  AND a.Active='Y' "\
       "  AND (fl.Airline=a.IATA or fl.Airline=a.ICAO); ";
 
