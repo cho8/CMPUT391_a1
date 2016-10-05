@@ -1,3 +1,15 @@
-CREATE TABLE poi(id int, uid int, lat float, lon float, x1 float, y1 float, x2 float, y2 float);
+CREATE TABLE poi(
+    id int,
+    uid int,
+    lat float,
+    lon float);
 
-CREATE TABLE poi_tag(id int, key text, value text);
+ALTER TABLE poi ADD COLUMN x1 float;
+ALTER TABLE poi ADD COLUMN y1 float;
+ALTER TABLE poi ADD COLUMN x2 float;
+ALTER TABLE poi ADD COLUMN y2 float;
+
+CREATE TABLE poi_tag(
+    id int,
+    key text,
+    value text);
