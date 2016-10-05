@@ -1,0 +1,3 @@
+CREATE TABLE poi(id int, uid int, lat float, lon float, x1 float, y1 float, x2 float, y2 float);
+
+CREATE TABLE poi_tag(id int, key text, value text);
