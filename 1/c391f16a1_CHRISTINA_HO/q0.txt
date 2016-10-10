@@ -1,0 +1,68 @@
+-- Drop tables (in case they exist)
+  DROP TABLE IF EXISTS airlines;
+  DROP TABLE IF EXISTs airports;
+  DROP TABLE IF EXISTS routes;
+  DROP TABLE IF EXISTS distances;
+  DROP TABLE IF EXISTS equipment10k;
+  DROP TABLE IF EXISTS connections;
+
+CREATE TABLE airlines(
+  Airline_ID INTEGER PRIMARY KEY, 
+  Name CHAR[20], 
+  Alias CHAR[4], 
+  IATA CHAR[2], 
+  ICAO CHAR[3], 
+  Callsign CHAR[20], 
+  Country CHAR[20], 
+  Active CHAR[1]
+);
+
+CREATE TABLE airports(
+  Airport_ID INTEGER PRIMARY KEY, 
+  Name CHAR[20], 
+  City CHAR[20], 
+  Country CHAR[20], 
+  IATA_FAA CHAR[3], 
+  ICAO CHAR[4], 
+  Latitude NUMERIC, 
+  Longitude NUMERIC, 
+  Altitude NUMERIC, 
+  Timezone INTEGER, 
+  DST CHAR[20],
+  Tz_database_time_zone CHAR[20]
+);
+
+
+CREATE TABLE routes(
+  Airline CHAR[3], 
+  Airline_ID INTEGER, 
+  Source_airport CHAR[4], 
+  Source_airport_ID INTEGER, 
+  Destination_airport CHAR[4], 
+  Destination_airport_ID INTEGER, 
+  Codeshare CHAR[1], 
+  Stops INTEGER, 
+  Equipment CHAR[5],
+  FOREIGN KEY (Airline_ID) REFERENCES airlines(Airline_ID)
+    ON DELETE CASCADE,
+  FOREIGN KEY (Source_airport_ID) REFERENCES airports(Airport_ID)
+    ON DELETE CASCADE,  
+  FOREIGN KEY (Destination_airport_ID) REFERENCES airports(Airport_ID)
+    ON DELETE CASCADE
+);
+
+.mode csv
+.import airlines.dat airlines
+.import airports.dat airports
+.import routes.dat routes
+
+-- replace all "" with "\N" for future queries
+UPDATE airlines SET IATA="\N" WHERE IATA="";
+UPDATE airlines SET ICAO="\N" WHERE ICAO="";
+UPDATE airlines SET Callsign="\N" WHERE Callsign="";
+UPDATE airlines SET Country="\N" WHERE Country="";
+
+UPDATE airports SET IATA_FAA="\N" WHERE IATA_FAA="";
+UPDATE airports SET ICAO="\N" WHERE ICAO="";
+
+

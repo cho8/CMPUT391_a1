@@ -1,0 +1,31 @@
+CREATE TABLE poi(
+    id int,
+    uid int,
+    lat float,
+    lon float);
+
+.mode tabs
+.import ./poi.tsv poi
+
+ALTER TABLE poi ADD COLUMN x1 float;
+ALTER TABLE poi ADD COLUMN y1 float;
+ALTER TABLE poi ADD COLUMN x2 float;
+ALTER TABLE poi ADD COLUMN y2 float;
+
+CREATE TABLE poi_tag(
+    id int,
+    key text,
+    value text);
+
+.import ./poi_tags.tsv poi
+
+
+// Some kind of loop _______
+    INSERT INTO poi (x1, y1, x2, y2)
+    select
+        (lat * 111191) as x1,
+        (long * 74539) as y1,
+        (lat * 111191 + 10) as x2,
+        (long * 74539 + 10) as y2,
+    FROM poi p
+    WHERE p.id = ______
