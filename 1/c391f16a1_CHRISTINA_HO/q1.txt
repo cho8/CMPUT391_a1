@@ -1,7 +1,0 @@
-Q1 (10 pts)
-
-In a plain text ASCII file called q1.txt answer the question is the database normalized? Explain your answer in 1 or 2 paragraphs.
-
-The database is normalized because each attribute contains only one value per table, and no data is duplicated over any of the tables. For example, no airport information is redundantly represented. Any information in "routes" that would have been duplicated (such as flights from the same airport) is extracted out into its own table and referenced with a foreign constraint.
-
-If this database was not normalized and each flight contains airport information, deleting an airport would be wholly inefficient, as the table needs to be iterated over to delete all instances of flights relating to that airport. Because this database is normalized, a deletion of a single tuple results in logical and efficient removal of information from flights.
