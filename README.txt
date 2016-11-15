@@ -1,5 +1,6 @@
 CMPUT391
 Fall2016
+Assignment 1
 Christina Ho
 
 For each question, simply use:
